@@ -299,3 +299,15 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 14px; background:
   .admin-overlay.show { display: block; }
   .admin-main { padding: 18px 14px 30px; }
 }
+.footer-github {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  color: var(--text);
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.footer-github:hover {
+  opacity: 1;
+}
