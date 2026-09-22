@@ -7,7 +7,7 @@ const signToken = (user) => jwt.sign(
   { expiresIn: process.env.APP_JWT_EXPIRES || '7d' },
 );
 
-// Verifies our own app JWT (issued after login/2FA, signup, or Google sign-in).
+
 async function auth(req, res, next) {
   try {
     const header = req.headers.authorization || '';

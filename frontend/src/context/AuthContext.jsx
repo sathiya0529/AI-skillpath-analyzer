@@ -36,15 +36,13 @@ export function AuthProvider({ children }) {
     saveSession(data);
   };
 
-  // Step 1 of manual login: verify credentials, then a 6-digit code is emailed
-  // to the user. Returns { twoFactorRequired: true, tempToken } — the caller
-  // must then call verifyLoginOtp() to finish logging in.
+  
   const login = async (email, password) => {
     const { data } = await api.post('/auth/login', { email, password });
-    return data; // { twoFactorRequired, tempToken, email, devOtp }
+    return data; 
   };
 
-  // Step 2 of manual login: submit the emailed code to finish logging in.
+ 
   const verifyLoginOtp = async (tempToken, otp) => {
     const { data } = await api.post('/auth/verify-login-otp', { tempToken, otp });
     saveSession(data);
@@ -53,25 +51,21 @@ export function AuthProvider({ children }) {
 
   const resendLoginOtp = async (tempToken) => {
     const { data } = await api.post('/auth/resend-login-otp', { tempToken });
-    return data; // { tempToken, devOtp }
+    return data; 
   };
 
-  // Real Google Sign-In (Google Identity Services). `idToken` comes from
-  // Google's own button/popup and is verified against Google on the backend.
-  // Single step — no additional email OTP, since Google already authenticated the person.
   const googleLogin = async (idToken) => {
     const { data } = await api.post('/auth/google', { idToken });
     saveSession(data);
     return data.user;
   };
 
-  // Sends a 6-digit code to the account's email to start a password reset.
+  
   const forgotPassword = async (email) => {
     const { data } = await api.post('/auth/forgot', { email });
-    return data; // { message, devOtp }
+    return data; 
   };
 
-  // Completes a password reset using the emailed code.
   const resetPassword = async (email, otp, password) => {
     const { data } = await api.post('/auth/reset', { email, otp, password });
     return data;
